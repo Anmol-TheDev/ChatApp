@@ -1,13 +1,18 @@
-const app = require("express")();
-const server = require("http").createServer(app);
-const cors = require("cors");
+// const app = require("express")();
+// const server = require("http").createServer(app);
+import express from "express";
+import createServer from "http";
+const app = express();
+const server = createServer(app);
+import cors from "cors";
+
 import socketConnection from "socketIO";
 app.use(
   cors({
     origin: "*",
   })
 );
-import userRouter from "./routes/user.routes.js";
+
 socketConnection(server);
 // const io = require("socket.io")(server, {
 //   cors: {
