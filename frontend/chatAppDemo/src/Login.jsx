@@ -13,7 +13,7 @@ const Login = () => {
     try {
       // Send login request to the backend
       await axios.post("http://localhost:5000/api/users/login", {
-        email,
+        email,  
         password,
       });
 
