@@ -1,25 +1,25 @@
-// const app = require("express")();
-// const server = require("http").createServer(app);
 import express from "express";
-import createServer from "http";
+import { createServer } from "http";
 const app = express();
+
 const server = createServer(app);
 import cors from "cors";
-
-import socketConnection from "socketIO";
+import socketConnection from "./socketIO.js";
+app.use(express.json());
 app.use(
   cors({
     origin: "*",
   })
 );
+import userRouter from "./user.route.js";
+// import userRouter from "./routes/user.routes.js";
 
-socketConnection(server);
 // const io = require("socket.io")(server, {
 //   cors: {
 //     origin: "*",
 //   },
 // });
-// app.use("/api/v1", userRouter);
+app.use("/api/v1", userRouter);
 // io.on("connection", (socket) => {
 //   console.log(socket.toString());
 //   console.log(`a user connected ${socket.id}`);
@@ -28,7 +28,9 @@ socketConnection(server);
 //     io.emit("chat", data);
 //   });
 // });
-app.get("/", (req, res) => {
+app.get("/api/v1", (req, res) => {
+  socketConnection(server);
+
   res.send("Socket.io server running");
 });
 

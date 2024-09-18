@@ -1,17 +1,22 @@
-import User from "./user.model";
+import { User } from "./user.model.js";
 
 const userSignup = async (req, res) => {
-  const user = new User(req.body);
   try {
     const { name, email, password } = req.body;
-    const newUser = new User.findOne({ email: email });
-    if (newUser) {
-      throw new Error("User already exists");
-    }
-    const user = await User.create({ name, email, password });
-    await user.save();
+    const user = {
+      name,
+      email,
+      password,
+    };
+    // const newUser = new User.findOne({ email: email });
+    // if (newUser) {
+    //   throw new Error("User already exists");
+    // }
+    // const user = await User.create({ name, email, password });
+    // await user.save();
     res.status(201).send(user);
   } catch (error) {
+    console.log(error.message);
     res.status(400).send(error);
   }
 };
@@ -23,6 +28,7 @@ const userLogin = async (req, res) => {
     }
     res.status(201).send(user);
   } catch (error) {
+    console.log(error.message);
     res.status(400).send(error);
   }
 };
