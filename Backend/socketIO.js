@@ -1,12 +1,12 @@
-const socketIO = require("socket.io");
-
+// const socketIO = require("socket.io");
+import { Server } from "socket.io";
 const socketConnection = (server) => {
-  const io = require("socket.io")(server, {
+  const io = new Server(server, {
     cors: {
       origin: "*",
     },
   });
-
+  console.log(io);
   io.on("connection", (socket) => {
     console.log(`New user connected: ${socket.id}`);
 
@@ -24,13 +24,12 @@ const socketConnection = (server) => {
     socket.on("login", ({ email }) => {
       console.log(`User Email :${email} and socket id :${socket.id}`);
     });
-    socket.on("send_message", (data) => {});
-    socket.on("disconnect", () => {
-      console.log(`User disconnected: ${socket.id}`);
-    });
+    // socket.on("send_message", (data) => {});
+    // socket.on("disconnect", () => {
+    //   console.log(`User disconnected: ${socket.id}`);
+    // });
 
     // Add more event listeners here
   });
 };
-
-module.exports = socketConnection;
+export default socketConnection;
