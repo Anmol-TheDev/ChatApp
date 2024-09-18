@@ -34,6 +34,6 @@ app.get("/api/v1", (req, res) => {
   res.send("Socket.io server running");
 });
 
-server.listen(5000, () => {
+server.listen(4000, () => {
   console.log("Server is running on port 5000");
 });

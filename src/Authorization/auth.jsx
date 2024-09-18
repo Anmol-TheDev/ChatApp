@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { useRef } from "react";
 import axiox from "./axios"
-import {io} from "socket.io"
+import {io} from "socket.io-client"
 import { useNavigate } from "react-router-dom";
 
 
@@ -22,22 +22,22 @@ export function Auth() {
   const name = useRef() 
   const email = useRef()
   const password = useRef()
-  const socket = io("http://localhost:5000");
+  const socket = io();
   const navigate = useNavigate()
 
 console.log(axiox)
   // Sending login info to backend also emiting socket 
  async function handleLogin (e) { 
-  const Email = email.target.value;
-  const PassW = password.target.value;
       e.preventDefault();
-
+        
       try{
-        await axiox.post("/api/users/login",{
-         Email,PassW
-        }).then(()=>{
-          const socket = io("http://localhost:5000");
-      socket.emit("login", { Email, message: "user logged in !!" });
+          const body = {
+            email:email.current.value,
+            password:password.current.value,
+          }
+        await axiox.post("/api/users/login",body).then(()=>{
+          const socket = io(axiox);
+      socket.emit("login", { body, message: "user logged in !!" });
           navigate("Home")
         })
 
@@ -48,9 +48,16 @@ console.log(axiox)
   // Creating a new use 
   async function handleSignUp ( e ) {
             e.preventDefault()
-            try{
-              await axiox.post("/api/user/signup",{
 
+            try{
+              const body = {
+                name:name.current.value,
+                email:email.current.value,
+                password:password.current.value,
+              }
+              await axiox.post("/api/v1/signup",body).then(()=>{
+                console.log("user created")
+                navigate("Home")
               })
             } catch(error){
               console.log("Error while signup " , error)

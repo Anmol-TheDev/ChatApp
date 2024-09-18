@@ -16,7 +16,6 @@ const Login = () => {
         email,  
         password,
       });
-
       // If login is successful, establish a socket connection
       const socket = io("http://localhost:5000");
       socket.emit("login", { email, message: "user logged in !!" });
