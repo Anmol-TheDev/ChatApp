@@ -15,7 +15,7 @@ import { useRef } from "react";
 import axiox from "./axios"
 import {io} from "socket.io-client"
 import { useNavigate } from "react-router-dom";
-
+import Googlelogin from "./googleAuth";
 
 
 export function Auth() {
@@ -56,7 +56,7 @@ console.log(axiox)
                 password:password.current.value,
               }
               await axiox.post("/api/v1/signup",body).then(()=>{
-                console.log("user created")
+                socket.emit("signup",{body, message: "new user created"})
                 navigate("Home")
               })
             } catch(error){
@@ -99,10 +99,7 @@ console.log(axiox)
                 </form>
               </CardContent>
                 <CardFooter className="flex justify-evenly" >
-                  <Button>
-                    <FcGoogle className="text-xl" />
-                    Login with Google
-                  </Button>
+                  <Googlelogin/>
                   <Button>Guest Account</Button>
                 </CardFooter>
             </Card>
@@ -141,10 +138,7 @@ console.log(axiox)
                 </form>
               </CardContent>
                 <CardFooter className="flex justify-evenly" >
-                  <Button>
-                    <FcGoogle className="text-xl" />
-                    Login with Google
-                  </Button>
+                <Googlelogin/>
                   <Button>Guest Account</Button>
                 </CardFooter>
             </Card>
