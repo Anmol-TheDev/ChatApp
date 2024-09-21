@@ -1,7 +1,7 @@
 import { GoogleLogin } from '@react-oauth/google';
 
 
-function Googlelogin ( ) {
+function Googlelogin () {
 
 return (
 <GoogleLogin
