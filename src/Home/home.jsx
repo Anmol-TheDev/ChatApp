@@ -3,6 +3,6 @@
 
 export function Home () {
     return (
-            <>Home</>
+        <h1>HOME</h1>
     )
 }

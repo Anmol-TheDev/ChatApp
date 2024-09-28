@@ -10,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { FcGoogle } from "react-icons/fc";
 import { useRef } from "react";
 import axiox from "./axios"
 import {io} from "socket.io-client"
@@ -81,7 +80,7 @@ console.log(axiox)
               </CardHeader>
               <CardContent>
                 <form className="flex flex-col gap-3" onSubmit={handleLogin}>
-                  <Label htmlfor="email">Email</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input
                     ref={email}
                     placeholder="Enter email"
@@ -89,7 +88,7 @@ console.log(axiox)
                     type="email"
                     id="email"
                   />
-                  <Label htmlfor="pass">Password</Label>
+                  <Label htmlFor="pass">Password</Label>
                   <Input
                   ref={password}
                     placeholder="Enter password"required type="password"id="pass"></Input>
