@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const userSchema = Schema(
   {
@@ -13,6 +13,14 @@ const userSchema = Schema(
     password: {
       type: String,
       required: true,
+    },
+    profilePicture: {
+      type: String,
+      default: "",
+    },
+    friendList: {
+      type: [Schema.Types.ObjectId],
+      ref: "User",
     },
   },
   { timestamps: true }

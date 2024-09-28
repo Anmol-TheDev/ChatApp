@@ -1,7 +1,11 @@
 import express from "express";
 import { createServer } from "http";
 const app = express();
+import dotenv from "dotenv";
 
+dotenv.config({
+  path: "./.env",
+});
 const server = createServer(app);
 import cors from "cors";
 import socketConnection from "./socketIO.js";
@@ -12,22 +16,9 @@ app.use(
   })
 );
 import userRouter from "./user.route.js";
-// import userRouter from "./routes/user.routes.js";
 
-// const io = require("socket.io")(server, {
-//   cors: {
-//     origin: "*",
-//   },
-// });
 app.use("/api/v1", userRouter);
-// io.on("connection", (socket) => {
-//   console.log(socket.toString());
-//   console.log(`a user connected ${socket.id}`);
-//   socket.on("chat", (data) => {
-//     console.log("data", data);
-//     io.emit("chat", data);
-//   });
-// });
+
 app.get("/api/v1", (req, res) => {
   socketConnection(server);
 
