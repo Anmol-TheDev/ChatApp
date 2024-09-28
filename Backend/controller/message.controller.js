@@ -1,5 +1,5 @@
 import Message from "./message.model.js";
-
+import { io } from "./socketIO.js";
 const sendMessage = async (req, res) => {
   try {
     const { userName, message } = req.body;
@@ -14,3 +14,4 @@ const sendMessage = async (req, res) => {
     res.status(400).send(error);
   }
 };
+export default sendMessage;
