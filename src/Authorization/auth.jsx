@@ -10,12 +10,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";  
 import axiox from "./axios"
 import {io} from "socket.io-client"
 import { useNavigate } from "react-router-dom";
 import Googlelogin from "./googleAuth";
-
 
 export function Auth() {
   const name = useRef() 
@@ -24,7 +23,6 @@ export function Auth() {
   const socket = io();
   const navigate = useNavigate()
 
-console.log(axiox)
   // Sending login info to backend also emiting socket 
  async function handleLogin (e) { 
       e.preventDefault();
@@ -37,7 +35,7 @@ console.log(axiox)
         await axiox.post("/api/users/login",body).then(()=>{
           const socket = io(axiox);
       socket.emit("login", { body, message: "user logged in !!" });
-          navigate("Home")
+          navigate("ProfileSetup")
         })
 
       } catch(error){
@@ -56,7 +54,7 @@ console.log(axiox)
               }
               await axiox.post("/api/v1/signup",body).then(()=>{
                 socket.emit("signup",{body, message: "new user created"})
-                navigate("Home")
+                navigate("ProfileSetup")
               })
             } catch(error){
               console.log("Error while signup " , error)
