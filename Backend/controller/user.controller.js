@@ -6,6 +6,7 @@ import {
   generateAccessToken,
 } from "../middleware/authTokens.js";
 import { ApiResponse } from "../utility/ApiResponse.js";
+import { asyncHandler } from "../utility/ayncHandler.js";
 const generateTokens = (user) => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
@@ -72,5 +73,29 @@ const userLogin = async (req, res) => {
     res.status(400).send(error);
   }
 };
+const userLogout = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $unset: {
+        refreshToken: 1, // this removes the field from document
+      },
+    },
+    {
+      new: true,
+    }
+  );
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(200, {}, "User logged Out"));
+});
 
 export { userSignup, userLogin };
