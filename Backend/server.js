@@ -2,7 +2,7 @@ import express from "express";
 import { createServer } from "http";
 const app = express();
 import dotenv from "dotenv";
-import { cookieParser } from "cookie-parser";
+import cookieParser from "cookie-parser";
 app.use(cookieParser());
 dotenv.config({
   path: "./.env",
