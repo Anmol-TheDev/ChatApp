@@ -3,11 +3,6 @@ import dotenv from "dotenv";
 dotenv.config({
   path: "./.env",
 });
-const ACCESS_TOKEN_SECRET = "AJbcvsaiugAsdfougar";
-const ACCESS_TOKEN_EXPIRY = "1d";
-const REFRESH_TOKEN_SECRET = "ASdkfghcvjkfaghsvjkfgh";
-const REFRESH_TOKEN_EXPIRY = "10d";
-
 const generateRefreshToken = () => {
   return jwt.sign(
     {
