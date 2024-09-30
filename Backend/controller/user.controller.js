@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utility/cloudinary.js";
 import { ApiError } from "../utility/ApiError.js";
+
 import {
   generateRefreshToken,
   generateAccessToken,
@@ -97,5 +98,19 @@ const userLogout = asyncHandler(async (req, res) => {
     .clearCookie("refreshToken", options)
     .json(new ApiResponse(200, {}, "User logged Out"));
 });
-
-export { userSignup, userLogin };
+const userReferesh = asyncHandler(async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) {
+    return res.status(401).send("Unauthorized");
+  }
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).send("Forbidden");
+    }
+    const { accessToken } = generateTokens(user);
+    res
+      .status(200)
+      .send(new ApiResponse(user, accessToken, "new Token Generated"));
+  });
+});
+export { userSignup, userLogin, userLogout, userReferesh };
