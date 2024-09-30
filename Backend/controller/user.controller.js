@@ -1,5 +1,19 @@
 import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utility/cloudinary.js";
+import ApiError from "../utility/ApiError.js";
+import {
+  generateRefreshToken,
+  generateAccessToken,
+} from "../middleware/authTokens.js";
+import ApiResponse from "../utility/ApiResponse.js";
+const generateTokens = (user) => {
+  const accessToken = generateAccessToken(user);
+  const refreshToken = generateRefreshToken(user);
+  if (!accessToken || !refreshToken) {
+    throw new ApiError(400, "Failed to generate tokens");
+  }
+  return { accessToken, refreshToken };
+};
 const userSignup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -40,11 +54,19 @@ const userSignup = async (req, res) => {
 };
 const userLogin = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const { email, username, password } = req.body;
+    if (!email && !username)
+      throw new ApiError(400, "Email and username are required");
+    const user = await User.findOne({ $or: [{ email }, { username }] });
     if (!user) {
       return res.status(404).send("User not found");
     }
-    res.status(201).send(user);
+    const isPasswordCorrect = user.isPasswordCorrect(password);
+    if (!isPasswordCorrect) {
+      return res.status(400).send("Password is incorrect");
+    }
+    const { accessToken, refreshToken } = generateTokens(user);
+    res.status(201).send(new ApiResponse(user, accessToken, refreshToken));
   } catch (error) {
     console.log(error.message);
     res.status(400).send(error);
