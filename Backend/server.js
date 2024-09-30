@@ -9,6 +9,7 @@ dotenv.config({
 });
 const server = createServer(app);
 import cors from "cors";
+import connectDB from "./db/index.js";
 // import socketConnection from "./socketIO.js";
 app.use(express.json());
 app.use(
@@ -25,7 +26,12 @@ app.get("/api/v1", (req, res) => {
 
   res.send("Socket.io server running");
 });
-
-server.listen(5000, () => {
-  console.log("Server is running on port 5000");
-});
+connectDB()
+  .then(() => {
+    server.listen(5000, () => {
+      console.log("Server is running on port 5000");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });

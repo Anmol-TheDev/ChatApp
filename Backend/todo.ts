@@ -1,17 +1,17 @@
-//!1. Authentication Controllers>
+// !1. Authentication Controllers : Done
 ////      signup(req, res): Handles user registration.
 //  //    login(req, res): Authenticates users and returns a JWT token.
 //  //    logout(req, res): Logs users out by invalidating the session or JWT.
-//  ?    refreshToken(req, res): Provides a new JWT using a refresh token.
+//  //   refreshToken(req, res): Provides a new JWT using a refresh token.
 //! 2. User Management Controllers
 //   ?   getUserProfile(req, res): Retrieves the profile of a specific user.
 //    ?  updateUserProfile(req, res): Allows the user to update their profile (username, bio,    avatar).
 //   ?   searchUsers(req, res): Search for users by username or query.
 //! 3. Channel/Room Controllers
-//      createRoom(req, res): Creates a new chat room or server.
-//              getRoomDetails(req, res): Fetches details of a specific room (members, description).
-//      joinRoom(req, res): Adds a user to a specific room.
-//      leaveRoom(req, res): Removes a user from a room.
+//     ? createRoom(req, res): Creates a new chat room or server.
+//      ?        getRoomDetails(req, res): Fetches details of a specific room (members, description).
+//     ? joinRoom(req, res): Adds a user to a specific room.
+//      ?leaveRoom(req, res): Removes a user from a room.
 //! 4. Messaging Controllers
 //      sendMessage(req, res): Sends a message to a specific room.
 //      getMessages(req, res): Retrieves a list of messages for a specific room, with pagination.
