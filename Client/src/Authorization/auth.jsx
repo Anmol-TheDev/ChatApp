@@ -3,7 +3,7 @@ import {
   TabsList,
   TabsContent,
   TabsTrigger,
-} from "src/components/ui/tabs";
+} from '@/components/ui/tabs'
 import {
   Card,
   CardContent,
@@ -11,10 +11,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "src/components/ui/card";
-import { Input } from "src/components/ui/input";
-import { Label } from "src/components/ui/label";
-import { Button } from "src/components/ui/button";
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
 import axiox from "./axios";
 import { io } from "socket.io-client";
