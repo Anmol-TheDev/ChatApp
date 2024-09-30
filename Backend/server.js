@@ -8,19 +8,19 @@ dotenv.config({
 });
 const server = createServer(app);
 import cors from "cors";
-import socketConnection from "./socketIO.js";
+// import socketConnection from "./socketIO.js";
 app.use(express.json());
 app.use(
   cors({
     origin: "*",
   })
 );
-import userRouter from "./user.route.js";
+import userRouter from "./routes/user.route.js";
 
 app.use("/api/v1", userRouter);
 
 app.get("/api/v1", (req, res) => {
-  socketConnection(server);
+  // socketConnection(server);
 
   res.send("Socket.io server running");
 });
