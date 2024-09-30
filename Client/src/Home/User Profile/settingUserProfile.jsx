@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import ReactCrop from 'react-image-crop';
+import React, { useState } from "react";
+import { Button } from "src/components/ui/button";
+import { Input } from "src/components/ui/input";
+import ReactCrop from "react-image-crop";
 const ProfileInput = () => {
-  const [image, setImage] = useState('');
-  const [name, setName] = useState('');
-  const [crop, setCrop] = useState({ unit: '%', width: 30, height: 30 });
-  const [croppedImage, setCroppedImage] = useState('');
+  const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [crop, setCrop] = useState({ unit: "%", width: 30, height: 30 });
+  const [croppedImage, setCroppedImage] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -21,15 +21,15 @@ const ProfileInput = () => {
 
   const handleCropComplete = (crop) => {
     if (image && crop.width && crop.height) {
-      const img = document.createElement('img');
+      const img = document.createElement("img");
       img.src = image;
       img.onload = () => {
-        const canvas = document.createElement('canvas');
+        const canvas = document.createElement("canvas");
         const scaleX = img.naturalWidth / img.width;
         const scaleY = img.naturalHeight / img.height;
         canvas.width = crop.width;
         canvas.height = crop.height;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext("2d");
         ctx.drawImage(
           img,
           crop.x * scaleX,
@@ -41,7 +41,7 @@ const ProfileInput = () => {
           crop.width,
           crop.height
         );
-        const croppedImageUrl = canvas.toDataURL('image/jpeg');
+        const croppedImageUrl = canvas.toDataURL("image/jpeg");
         setCroppedImage(croppedImageUrl);
       };
     }
@@ -56,7 +56,7 @@ const ProfileInput = () => {
   return (
     <div className="flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-md">
       <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-sm">
-      <div className="mb-4">
+        <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Profile Image
           </label>
@@ -72,7 +72,7 @@ const ProfileInput = () => {
                        hover:file:bg-blue-200"
           />
         </div>
-        
+
         {image && (
           <ReactCrop
             src={image}
@@ -81,7 +81,7 @@ const ProfileInput = () => {
               imgRef.current = img;
             }}
             onComplete={handleCropComplete}
-            onChange={newCrop => setCrop(newCrop)}
+            onChange={(newCrop) => setCrop(newCrop)}
             className="mb-4"
           />
         )}
@@ -97,16 +97,25 @@ const ProfileInput = () => {
             className="border border-gray-300 rounded-md p-2 w-full"
           />
         </div>
-        <Button type="submit" className="bg-blue-600 text-white rounded-md py-2 hover:bg-blue-700">
+        <Button
+          type="submit"
+          className="bg-blue-600 text-white rounded-md py-2 hover:bg-blue-700"
+        >
           Submit
         </Button>
       </form>
       {image && (
         <div className="mt-4">
-          <img src={image} alt="Profile" className="w-24 h-24 rounded-full border-2 border-gray-300" />
+          <img
+            src={image}
+            alt="Profile"
+            className="w-24 h-24 rounded-full border-2 border-gray-300"
+          />
         </div>
       )}
-      {name && <h2 className="mt-2 text-lg font-semibold text-gray-800">{name}</h2>}
+      {name && (
+        <h2 className="mt-2 text-lg font-semibold text-gray-800">{name}</h2>
+      )}
     </div>
   );
 };
