@@ -8,8 +8,6 @@ import { Home } from './Home/home.jsx';
 import ProfileInput from './Home/User Profile/settingUserProfile';
 import { GoogleOAuthProvider } from '@react-oauth/google';
   const oAuthClient = import.meta.env.VITE_google_Oauth_Clint_Id;
-  // console.log(oAuthClient)
-  console.log(import.meta.env.VITE.Temp)
   const router = createBrowserRouter([ 
     {
       path: "/",
@@ -25,7 +23,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
     }
   ]);
 createRoot(document.getElementById('root')).render(
-    <GoogleOAuthProvider clientId={key}>
+    <GoogleOAuthProvider clientId={oAuthClient}>
   <StrictMode>
     <RouterProvider router={router}>
     <App />

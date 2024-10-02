@@ -3,7 +3,7 @@ import {
   TabsList,
   TabsContent,
   TabsTrigger,
-} from '@/components/ui/tabs'
+} from '../components/ui/tabs'
 import {
   Card,
   CardContent,
@@ -11,10 +11,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Button } from "../components/ui/button";
 import { useEffect, useRef } from "react";
 import axiox from "./axios";
 import { io } from "socket.io-client";
@@ -37,7 +37,8 @@ export function Auth() {
         email: email.current.value,
         password: password.current.value,
       };
-      await axiox.post("/api/users/login", body).then(() => {
+      console.log(body)
+      await axiox.post("/api/v1/login", body).then(() => {
         const socket = io(axiox);
         socket.emit("login", { body, message: "user logged in !!" });
         navigate("ProfileSetup");

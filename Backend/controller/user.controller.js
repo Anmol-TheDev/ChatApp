@@ -30,7 +30,7 @@ const userSignup = async (req, res) => {
     if (
       req.files &&
       Array.isArray(req.files.coverImageLocalPath) &&
-      req.files.coverImageLocalPath.length > 0
+      req.files.coverImageLocalPath.length > 0 
     ) {
       coverImageLocalPath = req.files.coverImage[0].path;
     }
