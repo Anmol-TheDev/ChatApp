@@ -18,6 +18,7 @@ function  ProfileSetup () {
       height: 200,
       type: "square"
     },
+    
     boundary: {
       width: "50vw",
       height: "50vh"
