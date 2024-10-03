@@ -20,6 +20,7 @@ import axiox from "./axios";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import Googlelogin from "./googleAuth";
+import { ModeToggle } from '../components/ui/mode-toggle';
 
 export function Auth() {
   const name = useRef();
@@ -66,7 +67,8 @@ export function Auth() {
     }
   }
   return (
-    <div className="sm:w-dvw h-dvh flex justify-center items-center bg-ba ">
+    <div className="sm:w-dvw h-dvh flex justify-center items-center ">
+      <ModeToggle/>
       <div className="sm: w-[400px] ">
         <Tabs defaultValue="Login">
           <TabsList>

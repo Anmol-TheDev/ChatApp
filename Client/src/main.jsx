@@ -7,6 +7,7 @@ import { Auth } from './Authorization/auth.jsx';
 import { Home } from './Home/home.jsx';
 import ProfileInput from './Home/User Profile/settingUserProfile';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ThemeProvider } from './components/ui/themeProvider.jsx';
   const oAuthClient = import.meta.env.VITE_google_Oauth_Clint_Id;
   const router = createBrowserRouter([ 
     {
@@ -23,11 +24,13 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
     }
   ]);
 createRoot(document.getElementById('root')).render(
-    <GoogleOAuthProvider clientId={oAuthClient}>
   <StrictMode>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme" >
+    <GoogleOAuthProvider clientId={oAuthClient}>
     <RouterProvider router={router}>
     <App />
     </RouterProvider>
-  </StrictMode>
     </GoogleOAuthProvider>
+    </ThemeProvider>
+  </StrictMode>
 )
