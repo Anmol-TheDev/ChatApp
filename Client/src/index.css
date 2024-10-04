@@ -48,8 +48,11 @@
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
   }
-  .orange{
-    
+  .Orange{
+    --background: 35 100% 95%;  --foreground: 35 5% 0%;  --card: 35 50% 90%;  --card-foreground: 35 5% 10%;  --popover: 35 100% 95%;  --popover-foreground: 35 100% 0%;  --primary: 35 100% 46%;  --primary-foreground: 0 0% 100%;  --secondary: 35 30% 70%;  --secondary-foreground: 0 0% 0%;  --muted: -3 30% 85%;  --muted-foreground: 35 5% 35%;  --accent: -3 30% 80%;  --accent-foreground: 35 5% 10%;  --destructive: 0 100% 30%;  --destructive-foreground: 35 5% 90%;  --border: 35 30% 50%;  --input: 35 30% 18%;  --ring: 35 100% 46%;  --radius: 0.5rem;
+  }
+  .Green{
+    --background: 102 100% 95%;  --foreground: 102 5% 0%;  --card: 102 50% 90%;  --card-foreground: 102 5% 10%;  --popover: 102 100% 95%;  --popover-foreground: 102 100% 0%;  --primary: 102 61% 72%;  --primary-foreground: 0 0% 0%;  --secondary: 102 30% 70%;  --secondary-foreground: 0 0% 0%;  --muted: 64 30% 85%;  --muted-foreground: 102 5% 35%;  --accent: 64 30% 80%;  --accent-foreground: 102 5% 10%;  --destructive: 0 100% 30%;  --destructive-foreground: 102 5% 90%;  --border: 102 30% 50%;  --input: 102 30% 18%;  --ring: 102 61% 72%;  --radius: 0.5rem;
   }
 }
 

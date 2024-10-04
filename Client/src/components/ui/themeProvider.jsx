@@ -22,13 +22,25 @@ export function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement
 
-    root.classList.remove("light", "dark")
+    root.classList.remove("light", "dark","Orange","Green")
 
     if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light"
+      // const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+      //   .matches
+      //   ? "dark"
+      //   : "light"
+      const systemTheme = (() => {
+        switch (true) {
+          case window.matchMedia("(prefers-color-scheme: dark)").matches:
+            return "dark";
+            case window.matchMedia("(prefers-color-scheme: Orange)").matches:
+            return "Orange";
+            case window.matchMedia("(prefers-color-scheme: Green)").matches:
+            return "Green";
+          default:
+            return "light";
+        }
+      })();
 
       root.classList.add(systemTheme)
       return
@@ -47,7 +59,7 @@ export function ThemeProvider({
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
-      {children}{children}
+      {children}
     </ThemeProviderContext.Provider>
   )
 }

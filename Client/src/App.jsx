@@ -1,26 +1,30 @@
-import { useState } from "react";
+import { Children, useState } from "react";
 import "./App.css";
-import { Auth } from "./Authorization/auth";
-import { Home } from "./Home/home";
+import { Auth } from './Authorization/auth.jsx';
+import { Home } from './Home/home.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "./components/ui/themeProvider"
+import ProfileSetup from "./Home/User Profile/settingUserProfile.jsx";
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: "Auth",
-      element: <Auth />,
+      path: "/",
+      element: <Auth key={"auth"} />,
     },
     {
       path: "Home",
-      element: <Home />,
+      element: <Home key={"home"} />,
     },
+    {
+      path: "Home/profileSetup",
+      element: <ProfileSetup key={"profileSetup"}/>
+    }
   ]);
 
   return (
-    <RouterProvider router={router}>
-      <Auth />
-    </RouterProvider>
+
+      <RouterProvider router={router} key="main-router" />
+
   );
 }
 

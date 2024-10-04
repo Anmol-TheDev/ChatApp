@@ -41,55 +41,73 @@ const ProfileSetup = () => {
   }
 
   return (
-    <form className=" flex flex-col justify-center items-center h-dvh gap-4 " onSubmit={handleSubmit} >
-      <div className="space-y">
-        <Label htmlFor="name">Name</Label>
-        <Input id="name" value={name} onChange={(e)=>{setName(e.target.value)}} placeholder="Enter your name" reqired />
+    <form className="flex flex-col justify-center items-center min-h-screen p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8" onSubmit={handleSubmit}>
+      <div className="w-full max-w-md space-y-2">
+        <Label htmlFor="name" className="text-sm font-medium">Name</Label>
+        <Input 
+          id="name" 
+          value={name} 
+          onChange={(e) => setName(e.target.value)} 
+          placeholder="Enter your name" 
+          required 
+          className="w-full"
+        />
       </div>
-      <img src={avatarSrc} alt="" className="w-24 h-24 rounded-full object-cover outline-dashed" />
-      <div >
-        <div className="flex items-center border-dotted">
-          <div className="space-y-2">
-            <Input type="file" onChange={handleFileChange} reqired accept="image/*" className="w-full" placeholder="Chose your image" />
-            <Dialog open={isEditing} onOpenChange={setIsEditing}>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>Edit Avatar</DialogTitle>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <AvatarEditor
-                    borderRadius={125}
-                    ref={editorRef}
-                    image={avatarSrc}
-                    width={250}
-                    height={250}
-                    border={50}
-                    color={[255, 255, 255, 0.6]}
-                    scale={scale}
-                    rotate={rotate}
-                  />
-                  <div className="flex items-center space-x-2">
-                    <Label htmlFor="zoom">Zoom:</Label>
-                    <Slider
-                      id="zoom"
-                      min={1}
-                      max={3}
-                      step={0.1}
-                      value={[scale]}
-                      onValueChange={(value) => setScale(value[0])}
-                    />
-                  </div>
-                  <Button onClick={() => setRotate((prev) => (prev + 90) % 360)}>
-                    <RotateCw className="mr-2 h-4 w-4" /> Rotate
-                  </Button>
-                  <Button onClick={handleSaveAvatar}>Save Changes</Button>
-                </div>
-              </DialogContent>
-            </Dialog>
+      
+      <div className="w-full max-w-md flex flex-col items-center space-y-4">
+        <img 
+          src={avatarSrc || '/placeholder-avatar.png'} 
+          alt="Avatar" 
+          className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover outline-dashed outline-2 outline-offset-2"
+        />
+        <Input 
+          type="file" 
+          onChange={handleFileChange} 
+          required 
+          accept="image/*" 
+          className="w-full text-sm"
+        />
+      </div>
+
+      <Dialog open={isEditing} onOpenChange={setIsEditing}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Edit Avatar</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <AvatarEditor
+              ref={editorRef}
+              image={avatarSrc}
+              width={250}
+              height={250}
+              border={50}
+              borderRadius={125}
+              color={[255, 255, 255, 0.6]}
+              scale={scale}
+              rotate={rotate}
+              className="mx-auto"
+            />
+            <div className="space-y-2">
+              <Label htmlFor="zoom" className="text-sm font-medium">Zoom:</Label>
+              <Slider
+                id="zoom"
+                min={1}
+                max={3}
+                step={0.1}
+                value={[scale]}
+                onValueChange={(value) => setScale(value[0])}
+                className="w-full"
+              />
+            </div>
+            <Button onClick={() => setRotate((prev) => (prev + 90) % 360)} className="w-full">
+              <RotateCw className="mr-2 h-4 w-4" /> Rotate
+            </Button>
+            <Button onClick={handleSaveAvatar} className="w-full">Save Changes</Button>
           </div>
-        </div>
-      </div>
-      <Button type="submit">Submit</Button>
+        </DialogContent>
+      </Dialog>
+
+      <Button type="submit" className="w-full max-w-md">Submit</Button>
     </form>
   );
 };
