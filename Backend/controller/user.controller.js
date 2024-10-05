@@ -32,7 +32,7 @@ const userSignup = asyncHandler(async (req, res) => {
     let coverImageLocalPath;
     if (
       req.files &&
-      Array.isArray(req.files.coverImage) && // corrected this part from coverImageLocalPath to coverImage
+      Array.isArray(req.files.coverImage) &&
       req.files.coverImage.length > 0
     ) {
       coverImageLocalPath = req.files.coverImage[0].path;
@@ -42,10 +42,10 @@ const userSignup = asyncHandler(async (req, res) => {
     if (!(coverImageLocalPath && picturelocalPath)) {
       throw new Error("Cover image and profile picture are required");
     }
-
-    const avatar = await uploadOnCloudinary(picturelocalPath);
-    const coverImage = await uploadOnCloudinary(coverImageLocalPath);
-
+    console.log(coverImageLocalPath, " :::", picturelocalPath);
+    const avatar = picturelocalPath;
+    const coverImage = coverImageLocalPath;
+    console.log(avatar, coverImage);
     const user = await User.create({
       userName,
       email,
@@ -53,6 +53,7 @@ const userSignup = asyncHandler(async (req, res) => {
       avatar: avatar.url,
       coverImage: coverImage?.url || "",
     });
+    console.log(user);
 
     await user.save();
     return res

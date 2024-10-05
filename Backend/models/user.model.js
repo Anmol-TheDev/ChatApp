@@ -1,8 +1,8 @@
 import mongoose, { Schema } from "mongoose";
-
+import bcrypt from "bcrypt";
 const userSchema = Schema(
   {
-    name: {
+    userName: {
       type: String,
       required: true,
     },
