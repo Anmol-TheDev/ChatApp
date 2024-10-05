@@ -16,45 +16,54 @@ const generateTokens = (user) => {
   }
   return { accessToken, refreshToken };
 };
-const userSignup = async (req, res) => {
+const userSignup = asyncHandler(async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    console.log(req.body);
+    const { userName, email, password } = req.body;
+    console.log(userName, email, password);
 
-    const newUser = new User.findOne({ email: email });
+    const newUser = await User.findOne({ $or: [{ userName }, { email }] });
     if (newUser) {
       throw new Error("User already exists");
     }
+    console.log(newUser);
 
     const picturelocalPath = req.files?.profilePicture[0]?.path;
     let coverImageLocalPath;
     if (
       req.files &&
-      Array.isArray(req.files.coverImageLocalPath) &&
-      req.files.coverImageLocalPath.length > 0
+      Array.isArray(req.files.coverImage) && // corrected this part from coverImageLocalPath to coverImage
+      req.files.coverImage.length > 0
     ) {
       coverImageLocalPath = req.files.coverImage[0].path;
+      console.log(coverImageLocalPath);
     }
-    if (!(coverImage && picturelocalPath)) {
+
+    if (!(coverImageLocalPath && picturelocalPath)) {
       throw new Error("Cover image and profile picture are required");
     }
 
     const avatar = await uploadOnCloudinary(picturelocalPath);
     const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+
     const user = await User.create({
-      name,
+      userName,
       email,
       password,
       avatar: avatar.url,
       coverImage: coverImage?.url || "",
     });
+
     await user.save();
-    res.status(201).send(user);
+    return res
+      .status(201)
+      .json(new ApiResponse(201, user, "new User Created!!"));
   } catch (error) {
     console.log(error.message);
-    res.status(400).send(error);
+    res.status(400).json(new ApiError(400, "Cannot connect to the user api"));
   }
-};
-const userLogin = async (req, res) => {
+});
+const userLogin = asyncHandler(async (req, res) => {
   try {
     const { email, username, password } = req.body;
     if (!email && !username)
@@ -73,7 +82,7 @@ const userLogin = async (req, res) => {
     console.log(error.message);
     res.status(400).send(error);
   }
-};
+});
 const userLogout = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
